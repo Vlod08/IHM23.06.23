@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.HelloController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="22.0" stroke="BLACK" strokeType="INSIDE" width="600.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="22.0" layoutY="375.0" stroke="BLACK" strokeType="INSIDE" width="600.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="354.0" layoutX="579.0" layoutY="22.0" stroke="BLACK" strokeType="INSIDE" width="21.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="354.0" layoutY="22.0" stroke="BLACK" strokeType="INSIDE" width="21.0" />
+      <Rectangle fx:id="mur1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="23.0" layoutX="103.0" layoutY="106.0" stroke="BLACK" strokeType="INSIDE" width="23.0" />
+      <Rectangle fx:id="mur2" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="23.0" layoutX="113.0" layoutY="116.0" stroke="BLACK" strokeType="INSIDE" width="23.0" />
+      <Rectangle fx:id="mur3" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="23.0" layoutX="113.0" layoutY="116.0" stroke="BLACK" strokeType="INSIDE" width="23.0" />
+      <Rectangle fx:id="mur4" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="23.0" layoutX="113.0" layoutY="116.0" stroke="BLACK" strokeType="INSIDE" width="23.0" />
+      <Rectangle fx:id="mur5" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="23.0" layoutX="113.0" layoutY="116.0" stroke="BLACK" strokeType="INSIDE" width="23.0" />
+      <Rectangle fx:id="mur6" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="23.0" layoutX="113.0" layoutY="116.0" stroke="BLACK" strokeType="INSIDE" width="23.0" />
+      <Rectangle fx:id="mur7" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="23.0" layoutX="113.0" layoutY="116.0" stroke="BLACK" strokeType="INSIDE" width="23.0" />
+      <Rectangle fx:id="mur8" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="23.0" layoutX="113.0" layoutY="116.0" stroke="BLACK" strokeType="INSIDE" width="23.0" />
+      <Rectangle fx:id="mur9" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="23.0" layoutX="113.0" layoutY="116.0" stroke="BLACK" strokeType="INSIDE" width="23.0" />
+      <Rectangle fx:id="mur10" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="23.0" layoutX="113.0" layoutY="116.0" stroke="BLACK" strokeType="INSIDE" width="23.0" />
+      <Rectangle fx:id="mur11" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="23.0" layoutX="113.0" layoutY="116.0" stroke="BLACK" strokeType="INSIDE" width="23.0" />
+      <Rectangle fx:id="mur12" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="23.0" layoutX="113.0" layoutY="116.0" stroke="BLACK" strokeType="INSIDE" width="23.0" />
+      <Rectangle fx:id="mur13" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="23.0" layoutX="113.0" layoutY="116.0" stroke="BLACK" strokeType="INSIDE" width="23.0" />
+      <Rectangle fx:id="mur14" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="23.0" layoutX="113.0" layoutY="116.0" stroke="BLACK" strokeType="INSIDE" width="23.0" />
+      <Rectangle fx:id="mur15" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="23.0" layoutX="113.0" layoutY="116.0" stroke="BLACK" strokeType="INSIDE" width="23.0" />
+      <Rectangle fx:id="mur16" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="23.0" layoutX="113.0" layoutY="116.0" stroke="BLACK" strokeType="INSIDE" width="23.0" />
+      <Rectangle fx:id="mur17" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="23.0" layoutX="113.0" layoutY="116.0" stroke="BLACK" strokeType="INSIDE" width="23.0" />
+      <Rectangle fx:id="mur18" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="23.0" layoutX="113.0" layoutY="116.0" stroke="BLACK" strokeType="INSIDE" width="23.0" />
+      <Rectangle fx:id="mur19" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="23.0" layoutX="113.0" layoutY="116.0" stroke="BLACK" strokeType="INSIDE" width="23.0" />
+      <Rectangle fx:id="mur20" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="23.0" layoutX="113.0" layoutY="116.0" stroke="BLACK" strokeType="INSIDE" width="23.0" />
+      <Rectangle fx:id="mur21" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="23.0" layoutX="113.0" layoutY="116.0" stroke="BLACK" strokeType="INSIDE" width="23.0" />
+      <Rectangle fx:id="mur22" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="23.0" layoutX="113.0" layoutY="116.0" stroke="BLACK" strokeType="INSIDE" width="23.0" />
+      <Rectangle fx:id="mur23" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="23.0" layoutX="113.0" layoutY="116.0" stroke="BLACK" strokeType="INSIDE" width="23.0" />
+   </children>
+</Pane>
