@@ -2,6 +2,7 @@ package com.example.demo;
 
 import com.example.demo.application.controller.Controller;
 import com.example.demo.application.model.Plateforme;
+import com.example.demo.application.view.GameView;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -18,8 +19,12 @@ public class HelloApplication {
 
     public HelloApplication(){
         plateforme = new Plateforme();
+        GameView gameview = new GameView();
 
-        controller = new Controller(p);
+        controller = new Controller(plateforme, gameview);
+
+
+
 
     }
 }
