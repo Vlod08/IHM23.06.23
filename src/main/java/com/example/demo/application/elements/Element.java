@@ -23,8 +23,8 @@ public class Element{
     public Element(){
 
         Random random = new Random();
-        this.x = random.nextInt();
-        this.y = random.nextInt();
+        this.x = 0;
+        this.y = 0;
         this.type = 'V';
     }
 

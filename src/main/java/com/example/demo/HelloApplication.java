@@ -2,13 +2,7 @@ package com.example.demo;
 
 import com.example.demo.application.controller.Controller;
 import com.example.demo.application.model.Plateforme;
-import com.example.demo.application.view.GameView;
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-
-import java.io.IOException;
+import com.example.demo.application.view.App;
 
 public class HelloApplication {
 
@@ -17,14 +11,14 @@ public class HelloApplication {
 
 
 
-    public HelloApplication(){
+    /*public HelloApplication(){
         plateforme = new Plateforme();
-        GameView gameview = new GameView();
+        App gameview = new App();
 
-        controller = new Controller(plateforme, gameview);
-
-
+        //controller = new Controller(plateforme, gameview);
 
 
-    }
+
+
+    }*/
 }
