@@ -4,10 +4,13 @@ import com.example.demo.application.controller.Controller;
 import com.example.demo.application.elements.mobile.Ghost;
 import com.example.demo.application.model.Model;
 import com.example.demo.application.model.Coor;
+import javafx.animation.Transition;
+import javafx.animation.TranslateTransition;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.event.EventHandler;
+import javafx.util.Duration;
 
 import java.util.ArrayList;
 
@@ -49,8 +52,8 @@ public class App extends Pane {
         this.pacmanView = new PacmanView();
         Coor c = controller.getPacmanPosition();
         this.pacmanView = new PacmanView();
-        this.pacmanView.setCenterX((c.getX()*20)+10);
-        this.pacmanView.setCenterY((c.getY()*20)+10);
+        this.pacmanView.setTranslateX((c.getX() * 20)+10);
+        this.pacmanView.setTranslateY((c.getY() * 20)+10);
         controller.setPacmanPostionListener(pacmanView);
         /***************************************************************************************************/
         //System.out.println("DOne here");
@@ -92,6 +95,11 @@ public class App extends Pane {
         this.setPrefHeight(25*20);
         this.setPrefHeight(25*20);
         this.requestFocus();
+        Transition transition = new TranslateTransition();
+        // Set the duration of the transition (adjust as needed)
+        ((TranslateTransition) transition).setDuration(Duration.seconds(0.5));
+        // Set the node to be animated (the ImageView)
+        ((TranslateTransition) transition).setNode(pacmanView);
 
     }
 

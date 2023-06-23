@@ -12,6 +12,24 @@ public class Pacman extends Mobile{
         this.setType('P');
 
     }
+    @Override
+    public void mouvement() {
+        switch (this.getDir()) {
+            case 'U':
+                this.setY(this.getY() - vitesse);
+                break;
+            case 'D':
+                this.setY(this.getY() + vitesse);
+                break;
+            case 'L':
+                this.setX(this.getX() - vitesse);
+                break;
+            case 'R':
+                this.setX(this.getX() + vitesse);
+                break;
+        }
+    }
+
 
 
 

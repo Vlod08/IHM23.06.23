@@ -4,19 +4,26 @@ import com.example.demo.application.elements.mobile.Pacman;
 import com.example.demo.events.PositionValueListener;
 import com.example.demo.events.PostionValueChangedEvent;
 import javafx.event.EventHandler;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
-public class PacmanView extends Circle implements PositionValueListener {
-    public PacmanView(){
-        super(10);
-        this.setFill(Color.rgb(0,255,0));
+public class PacmanView extends ImageView implements PositionValueListener {
+    public PacmanView() {
+        String filePath = PacmanView.class.getResource("/images/pacmanR.png").toString();
+        Image image = new Image(filePath);
+        this.setImage(image);
+        this.setFitWidth(20);
+        this.setFitHeight(20);
+
+        // this.setFill(Color.rgb(0,255,0));
     }
 
     @Override
     public void positionValueChanged(PostionValueChangedEvent event) {
-        setCenterX((event.getNewPos().getX()*20)+10);
-        setCenterY((event.getNewPos().getY()*20)+10);
+        setTranslateX((event.getNewPos().getX() * 20));
+        setTranslateY((event.getNewPos().getY() * 20));
     }
 }
