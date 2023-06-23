@@ -112,17 +112,23 @@ public class Model {
 
 
     public void fireValueChangedP(){
-        pacmanPostionListener.positionValueChanged(new PostionValueChangedEvent(null, this.getPacmanPosition()));
+        if(pacmanPostionListener != null) {
+            pacmanPostionListener.positionValueChanged(new PostionValueChangedEvent(null, this.getPacmanPosition()));
+        }
         /*for(PositionValueListener g : GhostsPostionListener ){
            // g.positionValueChanged(new PostionValueChangedEvent(null, this.something));
         }*/
     }
 
     public void fireValueChangedG(){
-        PositionValueListener g;
-        for(int i = 0; i<5;i++){
-            g = this.ghostsPostionListener.get(i);
-            g.positionValueChanged(new PostionValueChangedEvent(null, new Coor(this.ghosts.get(i).getX(),this.ghosts.get(i).getY())));
+        if(ghostsPostionListener != null) {
+
+
+            PositionValueListener g;
+            for (int i = 0; i < ghostsPostionListener.size(); i++) {
+                g = this.ghostsPostionListener.get(i);
+                g.positionValueChanged(new PostionValueChangedEvent(null, new Coor(this.ghosts.get(i).getX(), this.ghosts.get(i).getY())));
+            }
         }
     }
 

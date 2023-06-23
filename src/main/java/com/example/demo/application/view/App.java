@@ -42,6 +42,7 @@ public class App extends Pane {
         this.model = new Model();
         this.controller = new Controller(model);
         this.murs = new MursView(controller.getNbMurs());
+        //controller.setPacmanPostionListener(new PacmanView());
 
         /****Placing the walls******************************************************************************/
 
@@ -52,8 +53,8 @@ public class App extends Pane {
         this.pacmanView = new PacmanView();
         Coor c = controller.getPacmanPosition();
         this.pacmanView = new PacmanView();
-        this.pacmanView.setTranslateX((c.getX() * 20)+10);
-        this.pacmanView.setTranslateY((c.getY() * 20)+10);
+        this.pacmanView.setTranslateX((c.getX() * 20));
+        this.pacmanView.setTranslateY((c.getY() * 20));
         controller.setPacmanPostionListener(pacmanView);
         /***************************************************************************************************/
         //System.out.println("DOne here");
@@ -95,11 +96,9 @@ public class App extends Pane {
         this.setPrefHeight(25*20);
         this.setPrefHeight(25*20);
         this.requestFocus();
-        Transition transition = new TranslateTransition();
-        // Set the duration of the transition (adjust as needed)
-        ((TranslateTransition) transition).setDuration(Duration.seconds(0.5));
-        // Set the node to be animated (the ImageView)
-        ((TranslateTransition) transition).setNode(pacmanView);
+
+        // Start the transition
+
 
     }
 
