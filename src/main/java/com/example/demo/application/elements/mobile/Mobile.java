@@ -11,18 +11,27 @@ public class Mobile extends Element {
     public void mouvement(){
         switch (this.dir) {
             case 'U':
-                setX(getY() + vitesse);
+                System.out.println(" x : "+this.getX()+" ; y : "+this.getY());
+                this.setY(this.getY() - vitesse);
+                System.out.println(" x : "+this.getX()+" ; y : "+this.getY());
                 break;
             case 'D':
-                setY(getY() - vitesse);
+                System.out.println(" x : "+this.getX()+" ; y : "+this.getY());
+                this.setY(this.getY() + vitesse);
+                System.out.println(" x : "+this.getX()+" ; y : "+this.getY());
                 break;
             case 'L':
-                setX(getX() - vitesse);
+                System.out.println(" x : "+this.getX()+" ; y : "+this.getY());
+                this.setX(this.getX() - vitesse);
+                System.out.println(" x : "+this.getX()+" ; y : "+this.getY());
                 break;
             case 'R':
-                setX(getX() + vitesse);
+                System.out.println(" x : "+this.getX()+" ; y : "+this.getY());
+                this.setX(this.getX() + vitesse);
+                System.out.println(" x : "+this.getX()+" ; y : "+this.getY());
                 break;
         }
+
     }
 
     public void setDir(char dir){
@@ -41,6 +50,19 @@ public class Mobile extends Element {
         else{
             System.out.println("negative ");
         }
+    }
+
+    public char getDir(){
+        return dir;
+    }
+
+    public int getVitesse(){
+        return vitesse;
+    }
+
+    public Mobile(){
+        dir = 'R';
+        vitesse = 1;
     }
 
 

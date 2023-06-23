@@ -1,19 +1,36 @@
 package com.example.demo.application.controller;
 
 import com.example.demo.application.elements.Element;
+import com.example.demo.application.model.Model;
 import com.example.demo.application.model.Coor;
-import com.example.demo.application.model.Plateforme;
-import com.example.demo.application.view.App;
+import com.example.demo.events.PositionValueListener;
 
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Controller {
-    Plateforme p;
+    private Model model;
+    private Timer timer;
+    private TimerTask task;
 
 
-    public Controller(Plateforme p){
-        this.p = p;
+
+    public Controller(Model p){
+        this.model = p;
+        timer = new Timer();
+        int movementInterval= 500;
+        task = new TimerTask() {
+            @Override
+            public void run() {
+                //System.out.println("Called timer task");
+                mouvementGame();
+            }
+        };
+
+        timer.schedule(task, movementInterval, movementInterval);
+
 
         //MettreAJourMurs();
 
@@ -25,14 +42,14 @@ public class Controller {
     }*/
 
     public ArrayList<Coor> getPositionMurs(){
-        ArrayList<ArrayList<Element>> cases = p.getCases();
+        ArrayList<ArrayList<Element>> cases = model.getCases();
         ArrayList<Coor> coor = new ArrayList<>();
-        int dim = p.getDim();
-        int nbMurs = p.getNbMure();
+        int dim = model.getDim();
+        int nbMurs = model.getNbMure();
 
         for (int i = 0; i < dim; i++) {
             for (int j = 0; j < dim; j++) {
-                if(cases.get(i).get(j).getType()=='M') {
+                if(cases.get(j).get(i).getType()=='M') {
                     coor.add(new Coor(i*20,j*20));
                 }
             }
@@ -41,8 +58,71 @@ public class Controller {
         return coor;
     }
 
+
     public int getNbMurs(){
-        return p.getNbMure();
+        return model.getNbMure();
+    }
+
+    void UpdatePacmanPosition(Coor coor){
+        this.model.setPacmanPosition(coor);
+    }
+
+
+
+    public Coor getPacmanPosition(){
+        return model.getPacmanPosition();
+    }
+
+    public void changePacmanDirection(char newdir){
+        char currentDir = model.getPacmanDirection();
+        switch (newdir){
+            case 'U':
+                if(currentDir == 'L' || currentDir=='R'){
+                    model.setPacmanDirection('U');
+                    System.out.println("changing the direction to up");
+                }
+                break;
+
+            case 'D':
+                if(currentDir == 'L' || currentDir=='R'){
+                    model.setPacmanDirection('D');
+                    System.out.println("changing the direction to down");
+                }
+                break;
+
+            case 'L':
+                if(currentDir == 'U' || currentDir=='D'){
+                    model.setPacmanDirection('L');
+                    System.out.println("changing the direction to left");
+                }
+                break;
+
+            case 'R':
+                if(currentDir == 'U' || currentDir=='D'){
+                    model.setPacmanDirection('R');
+                    System.out.println("changing the direction to right");
+                }
+                break;
+        }
+    }
+
+    public void setPacmanPostionListener(PositionValueListener p){
+        model.setPacmanPostionListener(p);
+    }
+
+    public void addGhostPostionListener(PositionValueListener g){
+        model.addGhostPositionListener(g);
+    }
+
+    public Coor modelCoortoViewCoor(Coor coor){
+        coor.setX((coor.getX()*20)+10);
+        coor.setY((coor.getY()*20)+10);
+        return coor;
+    }
+
+    public void mouvementGame(){
+        model.mouvementPacman();
+        model.mouvementGhosts();
     }
 
 

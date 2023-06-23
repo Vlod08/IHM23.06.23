@@ -1,20 +1,21 @@
 package com.example.demo.application.view;
 
 
+import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.paint.Color;
 
-public class Mur extends Rectangle {
+public class MurView extends Rectangle{
     //private Rectangle rect;
 
-    public Mur(){
+    public MurView(){
         super(20,20);
         this.setFill(Color.rgb(10,10,10));
         this.setX(20);
         this.setY(0);
     }
-    public Mur(float x, float y){
+    public MurView(float x, float y){
         this();
         this.setX(x);
         this.setY(y);
@@ -24,4 +25,18 @@ public class Mur extends Rectangle {
         this.setY(y);
         this.setX(x);
     }
+
+    EventHandler<MouseEvent> eve = new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent m){
+            System.out.println("clicked");
+        }
+    };
+
+
+
+
+
+
+
 }

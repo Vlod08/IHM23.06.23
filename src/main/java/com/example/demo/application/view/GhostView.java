@@ -1,17 +1,14 @@
 package com.example.demo.application.view;
 
-import com.example.demo.application.elements.mobile.Pacman;
 import com.example.demo.events.PositionValueListener;
 import com.example.demo.events.PostionValueChangedEvent;
-import javafx.event.EventHandler;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
-public class PacmanView extends Circle implements PositionValueListener {
-    public PacmanView(){
+public class GhostView extends Circle implements PositionValueListener {
+    public GhostView(){
         super(10);
-        this.setFill(Color.rgb(0,255,0));
+        this.setFill(Color.rgb(255,0,0));
     }
 
     @Override

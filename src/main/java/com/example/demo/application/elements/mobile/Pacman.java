@@ -7,9 +7,12 @@ public class Pacman extends Mobile{
 
     public Pacman(){
         vie = 100;
-        setXY(0,0);
+        setXY( 0, 0);
+        this.setVitesse(1);
+        this.setType('P');
 
     }
+
 
 
 

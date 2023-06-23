@@ -1,7 +1,10 @@
 package com.example.demo.application.model;
 
 import com.example.demo.application.elements.Element;
+import com.example.demo.application.elements.mobile.Ghost;
+import com.example.demo.application.elements.mobile.Pacman;
 
+import java.lang.reflect.GenericArrayType;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -15,44 +18,44 @@ public class Plateforme {
 
     int nbMure;
 
-    public Plateforme(){
+    private ArrayList<Ghost> ghosts;
+
+    public Plateforme() {
         this.dim = 25;
-        this.ratioMurVide = 0.25;
-        int nVide = dim*dim;
+        this.ratioMurVide = 0.1;
+        int nVide = dim * dim;
         int nMure = 0;
         int xTemp, yTemp;
         cases = new ArrayList<ArrayList<Element>>();
-        for(int i = 0; i<dim; i++){
+        for (int i = 0; i < dim; i++) {
             cases.add(new ArrayList<Element>());
-            for(int j = 0; j<dim; j++){
-                cases.get(i).add(new Element());
+            for (int j = 0; j < dim; j++) {
+                cases.get(i).add(new Element()); // Create empty Element
             }
         }
         Random random = new Random();
-        while(nMure/nVide < ratioMurVide){
+        while (nMure < 50) {
+            xTemp = random.nextInt(1,dim-2);
+            yTemp = random.nextInt(1,dim-2);
 
-            xTemp = random.nextInt(dim);
-            yTemp = random.nextInt(dim);
-
-            if(cases.get(xTemp).get(yTemp).getType()=='V'){
-                cases.get(xTemp).get(yTemp).setType('M');
+            if (cases.get(xTemp).get(yTemp).getType() == 'V') {
+                cases.get(xTemp).get(yTemp).setType('M'); // Set the type to 'M' (wall)
                 nMure++;
                 nVide--;
             }
         }
-        this.nbMure = nMure;
-        System.out.println("[ ");
-        /*for(int i = 0; i<dim; i++){
-            String str = "[ ";
-            for(int j = 0; j< cases.get(i).size(); j++){
-                str += " " + cases.get(i).get(j).getType()+" ";
-            }
-            str += " ] ";
-            System.out.println(str);
+        for(int i=0; i<dim; i++){
+            cases.get(0).get(i).setType('M');
+            cases.get(dim-1).get(i).setType('M');
+            cases.get(i).get(0).setType('M');
+            cases.get(i).get(dim-1).setType('M');
+            nMure+= 4;
+            nVide-= 4;
         }
-        System.out.println("] ");*/
-
+        this.nbMure = nMure;
     }
+
+
 
     public int getDim() {
         return dim;
@@ -70,7 +73,129 @@ public class Plateforme {
         return nbMure;
     }
 
+    public Coor placePacman(){
+        for(int i = 12; i < this.dim;i++){
+            for(int j = 12; j<dim; j++){
+                if (this.cases.get(j).get(i).getType()=='V'){
+                    this.cases.get(j).get(i).setType('P');
+                    System.out.println("Placed pacman at : "+j+"  "+i);
+                    Coor currentPosition = new Coor(i,j);
+                    setPacmanPosition(currentPosition);
+                    return currentPosition;
+
+                }
+            }
+        }
+        for(int i = 12; i < this.dim;i--){
+            for(int j = 12; j<dim; j--){
+                if (this.cases.get(i).get(j).getType()=='V'){
+                    this.cases.get(i).get(j).setType('P');
+
+                    System.out.println("Placed pacman at : "+i+"  "+j+"      sec");
+                    Coor currentPosition = new Coor(j,i);
+                    setPacmanPosition(currentPosition);
+                    return currentPosition;
+
+
+                }
+            }
+        }
+
+
+        return new Coor(-10,-10);
+
+    }
+
+    public Coor getPacmanPosition(){
+        for(int i =0;i<dim;i++){
+            for (int j = 0;j<dim;j++){
+                if(cases.get(i).get(j).getType()=='P'){
+                    return new Coor(j,i);
+                }
+            }
+        }
+        return new Coor();
+    }
+
+    public void setPacmanPosition(Coor coor){
+        if(cases.get((int)coor.getY()).get ((int)coor.getX()).getType()!='M'){
+            Coor currentPosition = getPacmanPosition();
+            setCaseType(currentPosition,'V');
+            cases.get((int)coor.getY()).get ((int)coor.getX()).setType('P');
+        }
+    }
+
+    public char getCaseType(int i, int j){
+        return this.cases.get(j).get(i).getType();
+    }
+
+    private void setCaseType(Coor c, char type){
+        this.cases.get((int)c.getX()).get((int)c.getY()).setType(type);
+    }
 
 
 
+
+    public Coor placeGhost() {
+        Random random = new Random();
+        boolean ok = false;
+        int x = random.nextInt(25);
+        int y = random.nextInt(25);
+        while (!ok) {
+            if (this.getCaseType(x,y) == 'V') {
+                this.getCaseType(x,y);
+                //System.out.println("printing the type : "+this.getCaseType(x,y));
+                this.cases.get(y).get(x).setType('G');
+                Coor currentPosition = new Coor(x, y);
+                System.out.println("placeGhost : "+x+" : "+y);
+                //printCases();
+                return currentPosition;
+            } else {
+                //System.out.println("Position not empty, generating new coordinates...");
+                x = random.nextInt(25);
+                y = random.nextInt(25);
+            }
+        }
+        Coor coor = new Coor(-10,-10);
+        return coor;
+    }
+
+
+    public void updateGhosts(){
+        this.ghosts = new ArrayList<>();
+        for (int k=0; k< 5 ; k++){
+
+            this.ghosts.add(new Ghost());
+            for(int i =0;i<dim;i++){
+                for (int j = 0;j<dim;j++){
+                    if(cases.get(j).get(i).getType()=='G'){
+                        this.ghosts.get(k).setXY(i,j);
+                        System.out.println("printing "+ i+"  :  "+j);
+                    }
+                }
+            }
+        }
+    }
+
+
+    public void printCases() {
+        String str = "[ \n";
+        for (int i = 0; i < 25; i++) {
+            str += "[ ";
+            for (int j = 0; j < 25; j++) {
+                str = str + cases.get(i).get(j).getType() + " ";
+            }
+            str += "] \n";
+        }
+        str += "]";
+
+        System.out.println(str);
+    }
+
+
+    public ArrayList<Ghost> getGhosts(){
+        return this.ghosts;
+    }
 }
+
+

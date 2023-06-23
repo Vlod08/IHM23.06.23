@@ -11,7 +11,7 @@ public class Coor {
 
     public Coor(float x, float y){
         this.x = x;
-        this.y =y;
+        this.y = y;
     }
 
     public float getX(){
@@ -21,7 +21,14 @@ public class Coor {
         return this.y;
     }
 
-    public void Print(){
+    /*public void Print(){
         System.out.println("x : "+ Float.toString(x)+ " , y : "+ Float.toString(x));
+    }*/
+
+    public void setX(float v) {
+        this.x = v;
+    }
+    public void setY(float v) {
+        this.y = v;
     }
 }

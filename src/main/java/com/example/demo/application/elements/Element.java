@@ -5,8 +5,8 @@ import java.util.Random;
 
 
 public class Element{
-    final int MAX_X = 25;
-    final int MAX_Y = 25;
+    final int MAX_X = 1000;
+    final int MAX_Y = 1000;
     int x;
     int y;
 
@@ -33,11 +33,16 @@ public class Element{
 
         if(x>0 && x < MAX_X ){
             this.x = x;
+
+            System.out.println("setx : "+x+" ; sety : "+y);
         }
+
     }
     public void setY(int y){
         if(y>0 && y < MAX_Y ){
             this.y = y;
+
+            //System.out.println("setx : "+x+" ; sety : "+y);
         }
     }
 
