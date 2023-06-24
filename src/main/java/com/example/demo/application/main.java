@@ -41,8 +41,8 @@ public class main extends Application {
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
         stage.setTitle("Hello!");*/
         primaryStage.setTitle("Game");
-        primaryStage.setScene(new Scene(root, 500,250));
-        primaryStage.setResizable(true);
+        primaryStage.setScene(new Scene(root, 500,500));
+        primaryStage.setResizable(false);
 
 
         primaryStage.show();

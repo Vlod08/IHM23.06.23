@@ -3,6 +3,8 @@ package com.example.demo.application.model;
 import com.example.demo.application.elements.Element;
 import com.example.demo.application.elements.mobile.Ghost;
 import com.example.demo.application.elements.mobile.Pacman;
+import com.example.demo.events.DirectionChangedEvent;
+import com.example.demo.events.DirectionListener;
 import com.example.demo.events.PostionValueChangedEvent;
 import com.example.demo.events.PositionValueListener;
 
@@ -17,6 +19,8 @@ public class Model {
     private ArrayList<Ghost> ghosts;
     private final int nbGhosts = 5;
     private PositionValueListener pacmanPostionListener;
+
+    private DirectionListener pacmanDirectionListener;
 
     private ArrayList<PositionValueListener> ghostsPostionListener;
 
@@ -62,6 +66,7 @@ public class Model {
 
     public void setPacmanPosition(Coor coor){
         plateforme.setPacmanPosition(coor);
+
     }
 
     public Coor placePacman(){
@@ -76,8 +81,19 @@ public class Model {
     public void setPacmanDirection(char dir) {
 
         this.pacman.setDir(dir);
+        firePacmanDirectionChanged(dir);
         //mouvementPacman();
 
+    }
+
+    private void firePacmanDirectionChanged(char dir){
+        if(this.pacmanDirectionListener!=null){
+            pacmanDirectionListener.directionChanged(new DirectionChangedEvent(null, dir));
+        }
+    }
+
+    public void setPacmanDirectionListener(DirectionListener pacmanDirectionListener){
+        this.pacmanDirectionListener = pacmanDirectionListener;
     }
 
     public void mouvementPacman(){

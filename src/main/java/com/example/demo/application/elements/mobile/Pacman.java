@@ -30,6 +30,13 @@ public class Pacman extends Mobile{
         }
     }
 
+    @Override
+    public void setDir(char c){
+        super.setDir(c);
+
+
+    }
+
 
 
 

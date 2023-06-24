@@ -10,6 +10,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.event.EventHandler;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 import java.util.ArrayList;
@@ -39,6 +40,10 @@ public class App extends Pane {
 
     public App(){
         /*****Implementing the model controller and the view***************************************/
+        this.setMinWidth(500);
+        this.setMinHeight(500);
+        this.getStyleClass().clear();
+        this.setStyle("-fx-background-color: #000000;");
         this.model = new Model();
         this.controller = new Controller(model);
         this.murs = new MursView(controller.getNbMurs());
@@ -56,6 +61,7 @@ public class App extends Pane {
         this.pacmanView.setTranslateX((c.getX() * 20));
         this.pacmanView.setTranslateY((c.getY() * 20));
         controller.setPacmanPostionListener(pacmanView);
+        controller.setPacmanDirectionListener(pacmanView);
         /***************************************************************************************************/
         //System.out.println("DOne here");
         this.ghosts = new ArrayList<>();
@@ -113,7 +119,6 @@ public class App extends Pane {
         public void handle(KeyEvent event) {
             //Coor current = all.getPacmanPosition();
 
-            Coor currentPostion = controller.getPacmanPosition();
             switch (event.getCode()){
                 case UP :
                     //System.out.println("changing the pacman direction to up");

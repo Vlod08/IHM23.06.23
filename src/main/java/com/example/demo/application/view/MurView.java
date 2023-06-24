@@ -12,7 +12,7 @@ public class MurView extends ImageView {
     //private Rectangle rect;
 
     public MurView(){
-        String filePath = MurView.class.getResource("/images/wall.jpg").toString();
+        String filePath = MurView.class.getResource("/images/wall2.jpg").toString();
         Image image = new Image(filePath);
         this.setImage(image);
         this.setFitWidth(20);

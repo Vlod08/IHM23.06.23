@@ -3,6 +3,8 @@ package com.example.demo.application.controller;
 import com.example.demo.application.elements.Element;
 import com.example.demo.application.model.Model;
 import com.example.demo.application.model.Coor;
+import com.example.demo.application.view.PacmanView;
+import com.example.demo.events.DirectionListener;
 import com.example.demo.events.PositionValueListener;
 
 
@@ -126,4 +128,7 @@ public class Controller {
     }
 
 
+    public void setPacmanDirectionListener(DirectionListener pacmanDirectionListener) {
+        model.setPacmanDirectionListener(pacmanDirectionListener);
+    }
 }
