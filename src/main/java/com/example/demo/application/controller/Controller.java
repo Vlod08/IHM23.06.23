@@ -5,6 +5,7 @@ import com.example.demo.application.model.Model;
 import com.example.demo.application.model.Coor;
 import com.example.demo.application.view.PacmanView;
 import com.example.demo.events.DirectionListener;
+import com.example.demo.events.GameOverListener;
 import com.example.demo.events.PositionValueListener;
 
 
@@ -22,12 +23,13 @@ public class Controller {
     public Controller(Model p){
         this.model = p;
         timer = new Timer();
-        int movementInterval= 500;
+        int movementInterval= 550;
         task = new TimerTask() {
             @Override
             public void run() {
                 //System.out.println("Called timer task");
                 mouvementGame();
+
             }
         };
 
@@ -56,6 +58,24 @@ public class Controller {
                 }
             }
         }
+
+        return coor;
+    }
+
+    public ArrayList<Coor> getPositionFruits(){
+        ArrayList<ArrayList<Element>> cases = model.getCases();
+        ArrayList<Coor> coor = new ArrayList<>();
+        int dim = model.getDim();
+
+        for (int i = 0; i < dim; i++) {
+            for (int j = 0; j < dim; j++) {
+                if(cases.get(j).get(i).getType()=='F') {
+                    coor.add(new Coor(i,j));
+                    System.out.println("i : "+coor+"   j : "+j );
+                }
+            }
+        }
+
 
         return coor;
     }
@@ -125,10 +145,15 @@ public class Controller {
     public void mouvementGame(){
         model.mouvementPacman();
         model.mouvementGhosts();
+        model.checkCollision();
     }
 
 
     public void setPacmanDirectionListener(DirectionListener pacmanDirectionListener) {
         model.setPacmanDirectionListener(pacmanDirectionListener);
+    }
+
+    public void setGameOverLister(GameOverListener g){
+        model.setGameOverListener(g);
     }
 }

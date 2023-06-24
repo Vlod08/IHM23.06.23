@@ -4,6 +4,8 @@ import com.example.demo.application.controller.Controller;
 import com.example.demo.application.elements.mobile.Ghost;
 import com.example.demo.application.model.Model;
 import com.example.demo.application.model.Coor;
+import com.example.demo.events.GameOverEvent;
+import com.example.demo.events.GameOverListener;
 import javafx.animation.Transition;
 import javafx.animation.TranslateTransition;
 import javafx.scene.input.KeyEvent;
@@ -15,12 +17,12 @@ import javafx.util.Duration;
 
 import java.util.ArrayList;
 
-public class App extends Pane {
+public class App extends Pane implements GameOverListener {
 
     private MursView murs;
     private PacmanView pacmanView;
-
     private ArrayList<GhostView> ghosts;
+    private FruitsView fruits;
     private Controller controller;
 
     //private Plateforme plateforme;
@@ -70,11 +72,27 @@ public class App extends Pane {
         for (int p = 0 ;p<5;p++){
 
             this.ghosts.add(new GhostView());
-            this.ghosts.get(p).setCenterX((gPos.get(p).getX()*20)+10);
-            this.ghosts.get(p).setCenterY((gPos.get(p).getY()*20)+10);
+            this.ghosts.get(p).setTranslateX((gPos.get(p).getX()*20)+10);
+            this.ghosts.get(p).setTranslateY((gPos.get(p).getY()*20)+10);
             controller.addGhostPostionListener(this.ghosts.get(p));
             System.out.println("coors : "+gPos.get(p).getX()+" ; "+gPos.get(p).getY());
         }
+        /***************************************************************************************************/
+        ArrayList<Coor> fPos = controller.getPositionFruits();
+        this.fruits = new FruitsView(fPos.size());
+
+        //System.out.println("Number of ghosts : "+gPos.size());
+        for (int p = 0 ;p<fPos.size();p++){
+
+            System.out.println("FRUIT : "+fPos.get(p).getX()+" : "+fPos.get(p).getX());
+            this.fruits.get(p).setTranslateX((fPos.get(p).getX()*20));
+            this.fruits.get(p).setTranslateY((fPos.get(p).getY()*20));
+            //System.out.println("FRUIT : "+this.fruits.get(p).getX()+" : "+this.fruits.get(p).getX());
+
+
+        }
+        /****************************************************************************************************/
+
 
 
         //controller.
@@ -97,8 +115,10 @@ public class App extends Pane {
         }
         this.setOnKeyPressed(moveEvent);
         this.setOnMouseClicked(mousemoveEvent);
+        this.getChildren().addAll(fruits);
         this.getChildren().add(pacmanView);
         this.getChildren().addAll(ghosts);
+
         this.setPrefHeight(25*20);
         this.setPrefHeight(25*20);
         this.requestFocus();
@@ -144,7 +164,8 @@ public class App extends Pane {
     };
 
 
-
-
-
+    @Override
+    public void gameOver(GameOverEvent event) {
+        this.getChildren().removeAll();
+    }
 }

@@ -18,9 +18,11 @@ public class Plateforme {
 
     int nbMure;
 
+    int nbFruits;
     private ArrayList<Ghost> ghosts;
 
     public Plateforme() {
+        this.nbFruits = 25;
         this.dim = 25;
         this.ratioMurVide = 0.1;
         int nVide = dim * dim;
@@ -53,6 +55,7 @@ public class Plateforme {
             nVide-= 4;
         }
         this.nbMure = nMure;
+        placeFruits();
     }
 
 
@@ -195,6 +198,35 @@ public class Plateforme {
 
     public ArrayList<Ghost> getGhosts(){
         return this.ghosts;
+    }
+
+    public ArrayList<Coor> placeFruits(){
+        ArrayList<Coor> fruitsPositions = new ArrayList<>();
+        int cntr = nbFruits;
+        int x,y;
+        Random rand = new Random();
+        while(cntr > 0){
+            x = rand.nextInt(1,25);
+            y = rand.nextInt(1,25);
+            if(cases.get(y).get(x).getType()=='V'){
+                cases.get(y).get(x).setType('F');
+                fruitsPositions.add(new Coor(x,y));
+                cntr--;
+            }
+
+        }
+
+        printCases();
+        return fruitsPositions;
+
+    }
+
+    public  void removeFruit(int x, int y){
+        this.cases.get(y).get(x).setType('V');
+        this.nbFruits--;
+        if(nbFruits==0){
+            /*****gameWonEvent;************/
+        }
     }
 }
 

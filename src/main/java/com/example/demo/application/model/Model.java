@@ -3,10 +3,7 @@ package com.example.demo.application.model;
 import com.example.demo.application.elements.Element;
 import com.example.demo.application.elements.mobile.Ghost;
 import com.example.demo.application.elements.mobile.Pacman;
-import com.example.demo.events.DirectionChangedEvent;
-import com.example.demo.events.DirectionListener;
-import com.example.demo.events.PostionValueChangedEvent;
-import com.example.demo.events.PositionValueListener;
+import com.example.demo.events.*;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -23,6 +20,7 @@ public class Model {
     private DirectionListener pacmanDirectionListener;
 
     private ArrayList<PositionValueListener> ghostsPostionListener;
+    private GameOverListener gameOverListener;
 
 
     public Model(){
@@ -43,9 +41,7 @@ public class Model {
             //System.out.println("cooty: "+coor.getY());
             this.ghosts.get(i).setY((int)coor.getY());
         }
-        /*for(int i =0; i<5;i++){
-            System.out.println("Printing in the model : "+this.ghosts.get(i).getX()+"  :  "+this.ghosts.get(i).getY());
-        }*/
+
 
     }
     public int getDim(){
@@ -97,6 +93,7 @@ public class Model {
     }
 
     public void mouvementPacman(){
+        //System.out.println("calling mouvementPacman");
         switch (pacman.getDir()){
             case 'R':
                 if(plateforme.getCaseType(pacman.getX()+pacman.getVitesse(),pacman.getY())!='M'){
@@ -181,7 +178,10 @@ public class Model {
             listener.onPositionValueChanged(ghosts);
         }*/
     }
+
+
     private void mouvementGhost(Ghost ghost) {
+        //System.out.println("calling mouvementGhost");
         boolean rand = true;
         char[] directions = {'U', 'D', 'R', 'L'};
 
@@ -232,6 +232,27 @@ public class Model {
         }
     }
 
+    public ArrayList<Coor> placeFruits(){
+        return this.plateforme.placeFruits();
+    }
+
+    public void removeFruit(int x, int y){
+        plateforme.removeFruit(x,y);
+    }
+
+    public void setGameOverListener(GameOverListener app){
+        this.gameOverListener = app;
+    }
+
+    public void checkCollision(){
+        for (Ghost g : this.ghosts){
+            if(g.getX() == pacman.getX() && g.getY() == pacman.getY()){
+                System.out.println("GameOver ");
+                this.gameOverListener.gameOver(new GameOverEvent(10));
+                break;
+            }
+        }
+    }
 }
 
 

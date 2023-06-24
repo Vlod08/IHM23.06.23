@@ -34,7 +34,7 @@ public class Element{
         if(x>0 && x < MAX_X ){
             this.x = x;
 
-            System.out.println("setx : "+x+" ; sety : "+y);
+            //System.out.println("setx : "+x+" ; sety : "+y);
         }
 
     }

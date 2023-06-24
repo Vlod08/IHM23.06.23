@@ -15,6 +15,7 @@ public class PostionValueChangedEvent extends Event{
     public PostionValueChangedEvent(Object source, Coor newCoor){
         super(MOVEMENT_LISTENER_EVENT_TYPE);
         this.newPos = newCoor;
+        System.out.println("Called the postion event");
     }
 
     public Coor getNewPos(){return newPos;}
