@@ -5,7 +5,7 @@ import javafx.scene.image.ImageView;
 
 public class FruitView extends ImageView {
     public FruitView(){
-        String filePath = MurView.class.getResource("/images/fruit.gif").toString();
+        String filePath = MurView.class.getResource("/images/Red_circle.gif").toString();
         Image image = new Image(filePath);
         this.setImage(image);
         this.setFitWidth(20);

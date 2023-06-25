@@ -10,17 +10,25 @@ import com.example.demo.events.GameOverEvent;
 import com.example.demo.events.GameOverListener;
 import javafx.animation.Transition;
 import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.scene.CacheHint;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.Group;
+import javafx.scene.SnapshotParameters;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 import javafx.event.EventHandler;
 import javafx.scene.paint.Color;
+import javafx.scene.transform.Transform;
 import javafx.util.Duration;
+
 
 import java.util.ArrayList;
 
-public class App extends Pane implements GameOverListener, EatFruitListener {
+
+public class App extends Group implements GameOverListener, EatFruitListener {
 
     private MursView murs;
     private PacmanView pacmanView;
@@ -28,9 +36,13 @@ public class App extends Pane implements GameOverListener, EatFruitListener {
     private FruitsView fruits;
     private Controller controller;
 
+    private ArrayList<ArrowView> arrows;
+
     //private Plateforme plateforme;
     private Model model;
     private MurView mur;
+
+    private ImageView m;
 
 
 
@@ -45,10 +57,11 @@ public class App extends Pane implements GameOverListener, EatFruitListener {
 
     public App(){
         /*****Implementing the model controller and the view***************************************/
-        this.setMinWidth(500);
-        this.setMinHeight(500);
+        /*this.setMinWidth(500);
+        this.setMinHeight(500);*/
+
         this.getStyleClass().clear();
-        this.setStyle("-fx-background-color: #000000;");
+        this.setStyle("-fx-background-color: black");
         this.model = new Model();
         this.controller = new Controller(model);
         controller.setEatFruitListener(this);
@@ -59,6 +72,8 @@ public class App extends Pane implements GameOverListener, EatFruitListener {
 
         ArrayList<Coor> coor = controller.getPositionMurs();
         murs.setPositions(coor);
+        //m = murs.createCachedWallsImageView();
+
 
         /****Setting Pacman **********************************************************************************/
         this.pacmanView = new PacmanView();
@@ -93,7 +108,7 @@ public class App extends Pane implements GameOverListener, EatFruitListener {
             this.fruits.get(p).setTranslateX((fPos.get(p).getX()*20));
             this.fruits.get(p).setTranslateY((fPos.get(p).getY()*20));
             //System.out.println("FRUIT : "+this.fruits.get(p).getX()+" : "+this.fruits.get(p).getX());
-            System.out.println("APP COOR x : "+fPos.get(p).getX()+"  y : "+fPos.get(p).getY());
+            //System.out.println("APP COOR x : "+fPos.get(p).getX()+"  y : "+fPos.get(p).getY());
 
 
         }
@@ -111,11 +126,27 @@ public class App extends Pane implements GameOverListener, EatFruitListener {
             System.out.println("x : "+ Double.toString(m.getX()) + ", y : "+ Double.toString(m.getY()) );
         }*/
         setCache(true);
-        setCacheShape(true);
+        //setCacheShape(true);
         setCacheHint(CacheHint.SPEED);
         controller.setEatFruitListener(this);
+        arrows = new ArrayList<>();
+        for(int i =0; i<3;i++){
+            arrows.add(new ArrowView());
+            arrows.get(i).setTranslateX((20*25)+30+(i*50));
+            arrows.get(i).setTranslateY(20*13);
+            arrows.get(i).addEventHandler(MouseEvent.MOUSE_DRAGGED, event -> {
+                double endX = event.getX();
+                double endY = event.getY();
+
+                this.setTranslateX(endX);
+                this.setTranslateY(endY);
+            });
+
+
+        }
         InisiatilerUI();
         controller.initialiseTimer();
+        controller.setGameOverLister(this);
 
     }
 
@@ -124,14 +155,18 @@ public class App extends Pane implements GameOverListener, EatFruitListener {
         for(int i = 0 ; i< murs.size(); i++){
             this.getChildren().addAll(murs.get(i));
         }
+        //this.getChildren().add(m);
         this.setOnKeyPressed(moveEvent);
         this.setOnMouseClicked(mousemoveEvent);
         this.getChildren().addAll(fruits);
         this.getChildren().add(pacmanView);
         this.getChildren().addAll(ghosts);
+        this.getChildren().addAll(arrows);
 
-        this.setPrefHeight(25*20);
-        this.setPrefHeight(25*20);
+
+
+        //this.setPrefHeight(25*20);
+        //this.setPrefHeight(25*20);
         this.requestFocus();
 
         // Start the transition
@@ -177,21 +212,31 @@ public class App extends Pane implements GameOverListener, EatFruitListener {
 
     @Override
     public void gameOver(GameOverEvent event) {
-        this.getChildren().removeAll();
+        Platform.runLater(() -> {
+
+            this.getChildren().removeAll(ghosts);
+
+        });
     }
 
-    public void removefruit(int x, int y){
-        for (FruitView f : this.fruits){
-            if(f.getX()*20 ==(x*20) && f.getY()==(y*20)){
-                this.fruits.remove(f);
-                this.getChildren().removeAll(fruits);
+    public void removeFruit(int x, int y) {
+        Platform.runLater(() -> {
+            for (FruitView fruit : fruits) {
+                if (fruit.getTranslateX() == (x * 20) && fruit.getTranslateY() == (y * 20)) {
+                    getChildren().remove(fruit);
+                }
             }
-        }
+        });
     }
 
     @Override
     public void eatFruit(EatFruitEvent event) {
-        removefruit(event.getX(),event.getY());
+        System.out.println("x : "+event.getX()+"  y: "+event.getY());
+        removeFruit(event.getX(),event.getY());
         System.out.println("calling eatFruit");
     }
+
+
+
+
 }

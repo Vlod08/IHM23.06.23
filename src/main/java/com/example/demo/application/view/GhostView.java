@@ -9,7 +9,7 @@ import javafx.scene.shape.Circle;
 
 public class GhostView extends ImageView implements PositionValueListener {
     public GhostView(){
-        String filePath = GhostView.class.getResource("/images/ghost.gif").toString();
+        String filePath = GhostView.class.getResource("/images/ghostblack.gif").toString();
         Image image = new Image(filePath);
         this.setImage(image);
         this.setFitWidth(20);

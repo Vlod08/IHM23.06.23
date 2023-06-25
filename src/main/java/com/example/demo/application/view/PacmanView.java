@@ -14,7 +14,7 @@ import javafx.scene.shape.Circle;
 
 public class PacmanView extends ImageView implements PositionValueListener, DirectionListener {
     public PacmanView() {
-        String filePath = PacmanView.class.getResource("/images/Pacman2.gif").toString();
+        String filePath = PacmanView.class.getResource("/images/PacmanWhite.gif").toString();
         Image image = new Image(filePath);
         this.setImage(image);
         this.setFitWidth(20);

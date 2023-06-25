@@ -133,7 +133,6 @@ public class Controller {
     public void mouvementGame(){
         model.mouvementPacman();
         model.mouvementGhosts();
-        model.checkCollision();
         //model.printCases();
     }
 
@@ -152,7 +151,7 @@ public class Controller {
 
     public void initialiseTimer(){
         timer = new Timer();
-        int movementInterval= 550;
+        int movementInterval= 300;
 
 
         task = new TimerTask() {
@@ -164,7 +163,7 @@ public class Controller {
             }
         };
 
-        timer.schedule(task, movementInterval,500);
+        timer.schedule(task, movementInterval,300);
 
 
     }

@@ -199,24 +199,28 @@ public class Model {
             case 'U':
                 if (plateforme.getCaseType(ghost.getX(), ghost.getY() - ghost.getVitesse()) != 'M') {
                     ghost.setY(ghost.getY() - ghost.getVitesse());
+                    checkCollision(ghost);
                     rand = false;
                 }
                 break;
             case 'D':
                 if (plateforme.getCaseType(ghost.getX(), ghost.getY() + ghost.getVitesse()) != 'M') {
                     ghost.setY(ghost.getY() + ghost.getVitesse());
+                    checkCollision(ghost);
                     rand = false;
                 }
                 break;
             case 'R':
                 if (plateforme.getCaseType(ghost.getX() + ghost.getVitesse(), ghost.getY()) != 'M') {
                     ghost.setX(ghost.getX() + ghost.getVitesse());
+                    checkCollision(ghost);
                     rand = false;
                 }
                 break;
             case 'L':
                 if (plateforme.getCaseType(ghost.getX() - ghost.getVitesse(), ghost.getY()) != 'M') {
                     ghost.setX(ghost.getX() - ghost.getVitesse());
+                    checkCollision(ghost);
                     rand = false;
                 }
                 break;
@@ -250,13 +254,11 @@ public class Model {
         this.gameOverListener = app;
     }
 
-    public void checkCollision(){
-        for (Ghost g : this.ghosts){
-            if(g.getX() == pacman.getX() && g.getY() == pacman.getY()){
-                System.out.println("GameOver ");
-                this.gameOverListener.gameOver(new GameOverEvent(10));
-                break;
-            }
+    public void checkCollision(Ghost g){
+        //System.out.println("Checking collision");
+        if(g.getX()==pacman.getX() && g.getY()== pacman.getY()){
+            //System.out.println("Found************************************");
+            gameOverListener.gameOver(new GameOverEvent(this.score));
         }
     }
 

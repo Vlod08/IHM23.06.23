@@ -12,7 +12,7 @@ public class MurView extends ImageView {
     //private Rectangle rect;
 
     public MurView(){
-        String filePath = MurView.class.getResource("/images/wall2.jpg").toString();
+        String filePath = MurView.class.getResource("/images/greywall.jpeg").toString();
         Image image = new Image(filePath);
         this.setImage(image);
         this.setFitWidth(20);
@@ -37,9 +37,11 @@ public class MurView extends ImageView {
     };
 
 
+    public double getWidth() {
+        return 20;
+    }
 
-
-
-
-
+    public double getHeight(){
+        return 20;
+    }
 }
