@@ -5,6 +5,7 @@ import com.example.demo.application.model.Model;
 import com.example.demo.application.model.Coor;
 import com.example.demo.application.view.PacmanView;
 import com.example.demo.events.DirectionListener;
+import com.example.demo.events.EatFruitListener;
 import com.example.demo.events.GameOverListener;
 import com.example.demo.events.PositionValueListener;
 
@@ -22,20 +23,6 @@ public class Controller {
 
     public Controller(Model p){
         this.model = p;
-        timer = new Timer();
-        int movementInterval= 550;
-        task = new TimerTask() {
-            @Override
-            public void run() {
-                //System.out.println("Called timer task");
-                mouvementGame();
-
-            }
-        };
-
-        timer.schedule(task, movementInterval, movementInterval);
-
-
         //MettreAJourMurs();
 
     }
@@ -71,7 +58,7 @@ public class Controller {
             for (int j = 0; j < dim; j++) {
                 if(cases.get(j).get(i).getType()=='F') {
                     coor.add(new Coor(i,j));
-                    System.out.println("i : "+coor+"   j : "+j );
+                    System.out.println("i : "+i +"   j : "+j );
                 }
             }
         }
@@ -97,32 +84,33 @@ public class Controller {
 
     public void changePacmanDirection(char newdir){
         char currentDir = model.getPacmanDirection();
+
         switch (newdir){
             case 'U':
                 if(currentDir == 'L' || currentDir=='R'){
                     model.setPacmanDirection('U');
-                    System.out.println("changing the direction to up");
+                    //System.out.println("changing the direction to up");
                 }
                 break;
 
             case 'D':
                 if(currentDir == 'L' || currentDir=='R'){
                     model.setPacmanDirection('D');
-                    System.out.println("changing the direction to down");
+                    //System.out.println("changing the direction to down");
                 }
                 break;
 
             case 'L':
                 if(currentDir == 'U' || currentDir=='D'){
                     model.setPacmanDirection('L');
-                    System.out.println("changing the direction to left");
+                    //System.out.println("changing the direction to left");
                 }
                 break;
 
             case 'R':
                 if(currentDir == 'U' || currentDir=='D'){
                     model.setPacmanDirection('R');
-                    System.out.println("changing the direction to right");
+                    //System.out.println("changing the direction to right");
                 }
                 break;
         }
@@ -146,6 +134,7 @@ public class Controller {
         model.mouvementPacman();
         model.mouvementGhosts();
         model.checkCollision();
+        //model.printCases();
     }
 
 
@@ -155,5 +144,28 @@ public class Controller {
 
     public void setGameOverLister(GameOverListener g){
         model.setGameOverListener(g);
+    }
+
+    public void setEatFruitListener(EatFruitListener e){
+        model.setEatFruitListener(e);
+    }
+
+    public void initialiseTimer(){
+        timer = new Timer();
+        int movementInterval= 550;
+
+
+        task = new TimerTask() {
+            @Override
+            public void run() {
+                //System.out.println("Called timer task");
+                mouvementGame();
+
+            }
+        };
+
+        timer.schedule(task, movementInterval,500);
+
+
     }
 }

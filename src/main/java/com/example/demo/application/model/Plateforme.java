@@ -22,7 +22,7 @@ public class Plateforme {
     private ArrayList<Ghost> ghosts;
 
     public Plateforme() {
-        this.nbFruits = 25;
+        this.nbFruits = 50;
         this.dim = 25;
         this.ratioMurVide = 0.1;
         int nVide = dim * dim;
@@ -173,7 +173,7 @@ public class Plateforme {
                 for (int j = 0;j<dim;j++){
                     if(cases.get(j).get(i).getType()=='G'){
                         this.ghosts.get(k).setXY(i,j);
-                        System.out.println("printing "+ i+"  :  "+j);
+                        //System.out.println("printing "+ i+"  :  "+j);
                     }
                 }
             }
@@ -221,12 +221,15 @@ public class Plateforme {
 
     }
 
-    public  void removeFruit(int x, int y){
-        this.cases.get(y).get(x).setType('V');
+    public  void removeFruit(){
         this.nbFruits--;
         if(nbFruits==0){
             /*****gameWonEvent;************/
         }
+    }
+
+    public void setCaseType(int x, int y, char c){
+        this.cases.get(y).get(x).setType(c);
     }
 }
 

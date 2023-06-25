@@ -11,6 +11,7 @@ import java.util.Random;
 import static java.lang.Math.abs;
 
 public class Model {
+    private int score;
     private Plateforme plateforme;
     private Pacman pacman;
     private ArrayList<Ghost> ghosts;
@@ -21,6 +22,8 @@ public class Model {
 
     private ArrayList<PositionValueListener> ghostsPostionListener;
     private GameOverListener gameOverListener;
+
+    private EatFruitListener eatFruitListener;
 
 
     public Model(){
@@ -40,6 +43,7 @@ public class Model {
             //System.out.println("cootx: "+coor.getX());
             //System.out.println("cooty: "+coor.getY());
             this.ghosts.get(i).setY((int)coor.getY());
+            score = 0;
         }
 
 
@@ -97,25 +101,30 @@ public class Model {
         switch (pacman.getDir()){
             case 'R':
                 if(plateforme.getCaseType(pacman.getX()+pacman.getVitesse(),pacman.getY())!='M'){
+
                     pacman.mouvement();
+                    checkEatFruit(pacman.getX(),pacman.getY());
                     fireValueChangedP();
                 }
                 break;
             case 'L':
                 if(plateforme.getCaseType(pacman.getX()-pacman.getVitesse(),pacman.getY())!='M'){
                     pacman.mouvement();
+                    checkEatFruit(pacman.getX(),pacman.getY());
                     fireValueChangedP();
                 }
                 break;
             case 'U':
                 if(plateforme.getCaseType(pacman.getX(),pacman.getY()-pacman.getVitesse())!='M'){
                     pacman.mouvement();
+                    checkEatFruit(pacman.getX(),pacman.getY());
                     fireValueChangedP();
                 }
                 break;
             case 'D':
                 if(plateforme.getCaseType(pacman.getX(),pacman.getY()+pacman.getVitesse())!='M'){
                     pacman.mouvement();
+                    checkEatFruit(pacman.getX(),pacman.getY());
                     fireValueChangedP();
                 }
                 break;
@@ -138,7 +147,7 @@ public class Model {
 
 
             PositionValueListener g;
-            for (int i = 0; i < ghostsPostionListener.size(); i++) {
+            for (int i = 0; i < 5; i++) {
                 g = this.ghostsPostionListener.get(i);
                 g.positionValueChanged(new PostionValueChangedEvent(null, new Coor(this.ghosts.get(i).getX(), this.ghosts.get(i).getY())));
             }
@@ -236,9 +245,6 @@ public class Model {
         return this.plateforme.placeFruits();
     }
 
-    public void removeFruit(int x, int y){
-        plateforme.removeFruit(x,y);
-    }
 
     public void setGameOverListener(GameOverListener app){
         this.gameOverListener = app;
@@ -252,6 +258,25 @@ public class Model {
                 break;
             }
         }
+    }
+
+    public void checkEatFruit(int x, int y){
+        if(plateforme.getCaseType(x,y)=='F'){
+            plateforme.removeFruit();
+            score++;
+            System.out.println(score);
+            plateforme.setCaseType(x,y,'V');
+            this.eatFruitListener.eatFruit(new EatFruitEvent(x,y));
+
+        }
+    }
+
+    public void setEatFruitListener(EatFruitListener e){
+        this.eatFruitListener = e;
+    }
+
+    public void printCases(){
+        this.plateforme.printCases();
     }
 }
 

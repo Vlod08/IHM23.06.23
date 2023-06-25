@@ -25,7 +25,7 @@ public class PacmanView extends ImageView implements PositionValueListener, Dire
 
     @Override
     public void positionValueChanged(PostionValueChangedEvent event) {
-        System.out.println("P");
+        //System.out.println("P");
         setTranslateX((event.getNewPos().getX() * 20));
         setTranslateY((event.getNewPos().getY() * 20));
     }

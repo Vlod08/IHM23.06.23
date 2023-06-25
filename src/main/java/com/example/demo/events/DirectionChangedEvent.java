@@ -4,6 +4,7 @@ import com.example.demo.application.model.Coor;
 import javafx.event.Event;
 import javafx.event.EventType;
 
+@SuppressWarnings("serial")
 public class DirectionChangedEvent extends Event {
     public static String TYPE = "DIRECTION_LISTENER_EVENT_TYPE";
 
